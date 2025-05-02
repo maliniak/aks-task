@@ -1,28 +1,28 @@
 resource "kubernetes_namespace" "helm_charts_namespace" {
-    count = var.cluster_available && var.cert_manager_available ? 1 : 0
+  count = var.cluster_available && var.cert_manager_available ? 1 : 0
 
-    metadata {
-        name = "wordpress"
-        labels = {
-            name = "wordpress"
-        }
+  metadata {
+    name = "wordpress"
+    labels = {
+      name = "wordpress"
     }
+  }
 }
 
 resource "kubernetes_namespace" "helm_charts_namespace_ingress" {
-    count = var.cluster_available && var.cert_manager_available ? 1 : 0
+  count = var.cluster_available && var.cert_manager_available ? 1 : 0
 
-    metadata {
-        name = "ingress-nginx"
-        labels = {
-            name = "wordpress"
-        }
+  metadata {
+    name = "ingress-nginx"
+    labels = {
+      name = "wordpress"
     }
+  }
 }
 
 
 resource "helm_release" "nginx_ingress" {
-    count = var.cluster_available && var.cert_manager_available ? 1 : 0
+  count = var.cluster_available && var.cert_manager_available ? 1 : 0
 
 
   name       = "nginx-ingress"

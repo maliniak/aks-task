@@ -18,12 +18,12 @@ resource "azurerm_subnet" "subnet_aks" {
 }
 
 resource "azurerm_subnet" "subnet_db" {
-  name                 = "${var.environment}-db-subnet"
-  resource_group_name  = azurerm_resource_group.wordpress.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = [var.subnet_address_db_prefix]
+  name                              = "${var.environment}-db-subnet"
+  resource_group_name               = azurerm_resource_group.wordpress.name
+  virtual_network_name              = azurerm_virtual_network.vnet.name
+  address_prefixes                  = [var.subnet_address_db_prefix]
   private_endpoint_network_policies = "Enabled"
-  service_endpoints    = ["Microsoft.Storage"]
+  service_endpoints                 = ["Microsoft.Storage"]
   delegation {
     name = "fs"
     service_delegation {
@@ -45,7 +45,7 @@ resource "azurerm_private_dns_zone_virtual_network_link" "db" {
   resource_group_name   = azurerm_resource_group.wordpress.name
   private_dns_zone_name = azurerm_private_dns_zone.dns_zone.name
   virtual_network_id    = azurerm_virtual_network.vnet.id
-  registration_enabled = true
+  registration_enabled  = true
 }
 
 
