@@ -11,14 +11,18 @@ This project deploys:
 
 ## Structure
 
-- `modules/network` - deplloys some basic network
-- `modules/aks` — deploys AKS cluster
-- `modules/database` — deploys PostgreSQL
-- `modules/aks-addons` - deploys addons after cluster creation
-- `modules/wordpress` — installs WordPress
+- `applications/network` - deploys some basic network
+- `applications/aks` — deploys AKS cluster
+- `applications/database` — deploys MySQL
+- `applications/aks-addons` - deploys addons after cluster creation
+- `applications/wordpress` — installs WordPress
 
 ## How to Use
 ```bash
+cd /deployments/prod
 terraform init
-terraform plan
-terraform apply
+Please provision resources:
+terraform apply -var="cluster_available=false" -var="cert_manager_available=false"
+terraform apply -var="cluster_available=true" -var="cert_manager_available=false"
+terraform apply -var="cluster_available=true" -var="cert_manager_available=true"
+
