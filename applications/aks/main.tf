@@ -1,17 +1,13 @@
-resource "azurerm_resource_group" "aks" {
-  name     = "rg-aks"
-  location = "westeurope"
-}
-
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = "aks-cluster"
-  location            = azurerm_resource_group.aks.location
-  resource_group_name = azurerm_resource_group.aks.name
+  location            = var.location
+  resource_group_name = var.resource_group_name_aks
   dns_prefix          = "aks-k8s"
   kubernetes_version  = "1.32.1"
 
   default_node_pool {
     name            = "default"
+    temporary_name_for_rotation = "defaulttemp"
     node_count      = 3
     vm_size         = "Standard_DS2_v2"
     os_disk_size_gb = 30
@@ -22,7 +18,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
       drain_timeout_in_minutes      = 0
       node_soak_duration_in_minutes = 0
     }
-
   }
 
   identity {
@@ -44,7 +39,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     dns_service_ip = "10.0.10.10"
     service_cidr   = "10.0.10.0/24"
     pod_cidr       = null
-    #outbound_type = "userDefinedRouting" // disable public ip
+    load_balancer_sku = "standard"
 
   }
 }

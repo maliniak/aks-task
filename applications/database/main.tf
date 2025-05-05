@@ -1,8 +1,3 @@
-resource "azurerm_resource_group" "db" {
-  name     = "rg-database"
-  location = "westeurope"
-}
-
 data "azurerm_key_vault_secret" "mysql_admin_password" {
   name         = azurerm_key_vault_secret.mysql_admin_password.name
   key_vault_id = azurerm_key_vault.mysql_kv.id
@@ -11,8 +6,8 @@ data "azurerm_key_vault_secret" "mysql_admin_password" {
 
 resource "azurerm_mysql_flexible_server" "db" {
   name                   = "mysql-flexible-aks"
-  resource_group_name    = azurerm_resource_group.db.name
-  location               = azurerm_resource_group.db.location
+  resource_group_name    = var.resource_group_name_db
+  location               = var.location
   administrator_login    = "psqladmin"
   administrator_password = data.azurerm_key_vault_secret.mysql_admin_password.value
   version                = "8.0.21"
@@ -27,7 +22,7 @@ resource "azurerm_mysql_flexible_server" "db" {
 
 resource "azurerm_mysql_flexible_database" "db" {
   name                = "wordpressdb"
-  resource_group_name = azurerm_resource_group.db.name
+  resource_group_name = var.resource_group_name_db
   server_name         = azurerm_mysql_flexible_server.db.name
   charset             = "utf8mb3"
   collation           = "utf8mb3_unicode_ci"
@@ -36,7 +31,7 @@ resource "azurerm_mysql_flexible_database" "db" {
 
 resource "azurerm_mysql_flexible_server_configuration" "db" {
   name                = "require_secure_transport"
-  resource_group_name = azurerm_resource_group.db.name
+  resource_group_name = var.resource_group_name_db
   server_name         = azurerm_mysql_flexible_server.db.name
   value               = "off"
 }

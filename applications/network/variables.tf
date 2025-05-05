@@ -1,8 +1,3 @@
-variable "resource_group_name" {
-  description = "The name of the Resource Group"
-  type        = string
-}
-
 variable "vnet_name" {
   description = "The name of the Virtual Network"
   type        = string
@@ -31,5 +26,10 @@ variable "subnet_address_aks_prefix" {
 
 variable "subnet_address_db_prefix" {
   description = "Address prefix for the db subnet"
+  type        = string
+}
+
+variable "resource_group_name_network" {
+  description = "Resource group"
   type        = string
 }

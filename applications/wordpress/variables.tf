@@ -3,11 +3,6 @@ variable "db_hostname" {
   type        = string
 }
 
-variable "network_resource_group" {
-  description = "The name of the Azure Resource Group containing the network resources, such as the VNet and DNS zones."
-  type        = string
-}
-
 variable "cluster_available" {
   description = "Flag indicating whether the AKS cluster is available and Terraform resources depending on it should be deployed."
   type        = bool

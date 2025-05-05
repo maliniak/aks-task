@@ -1,8 +1,3 @@
-variable "network_resource_group" {
-  description = "The name of the Azure Resource Group that contains the virtual network and related networking resources."
-  type        = string
-}
-
 variable "host" {
   description = "The fully qualified domain name (FQDN) used to expose the WordPress application via Ingress."
   type        = string
@@ -32,3 +27,8 @@ variable "cert_manager" {
   description = "Boolean flag to indicate whether cert-manager is installed and available for use in the cluster."
   type        = bool
 }
+
+#variable "network_resource_group" {
+#  description = "The name of the Azure Resource Group that contains the virtual network and related networking resources."
+#  type        = string
+#}

@@ -24,12 +24,11 @@ resource "kubernetes_namespace" "helm_charts_namespace_ingress" {
 resource "helm_release" "nginx_ingress" {
   count = var.cluster_available && var.cert_manager_available ? 1 : 0
 
-
   name       = "nginx-ingress"
   namespace  = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
-  version    = "4.0.13"
+  version    = "4.12.2"
 }
 
 resource "helm_release" "wordpress" {
@@ -42,7 +41,7 @@ resource "helm_release" "wordpress" {
   version    = "16.0.2"
   values = [
     templatefile("${path.module}/helm/wordpress-values.yaml.tpl", {
-      hostname = "wp.ops-bewerber-11.pg.senecops.com"
+      hostname = "wp.ops-bewerbung-11.pg.senecops.com"
       db_host  = var.db_hostname
     })
   ]

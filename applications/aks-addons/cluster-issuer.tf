@@ -19,9 +19,25 @@ resource "kubernetes_manifest" "clusterissuer_letsencrypt_prod" {
             "http01" = {
               "ingress" = {
                 "ingressClassName" = "nginx"
+                }
               }
+          },
+          {
+            "dns01" = {
+              "route53" = {
+                "region" = "us-west-2"
+                "accessKeyId" = "AKIA22A5NNLDHX3HRXHY"
+                "hostedZoneId" = "Z06207411JABIMXGYXLPH"
+                "secretAccessKeySecretRef" = {
+                  "name" = "route53-credentials"
+                  "key" = "secret-access-key"
+                  }
+               }
             }
-          }
+          "selector" = {
+            "dnsZones" = ["ops-bewerbung-11.pg.senecops.com"]
+            }
+          },
         ]
       }
     }

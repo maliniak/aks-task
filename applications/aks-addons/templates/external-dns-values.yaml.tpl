@@ -2,7 +2,7 @@ provider:
   name: aws
 env:
   - name: AWS_REGION
-    value: "eu-west-1"
+    value: "us-west-2"
 
   - name: AWS_ACCESS_KEY_ID
     valueFrom:
@@ -17,7 +17,7 @@ env:
         key: aws_secret_access_key
 
 domainFilters:
-  - ops-bewerber-11.pg.senecops.com
+  - ops-bewerbung-11.pg.senecops.com
 
 txtOwnerId: aks-cluster
 logLevel: debug
